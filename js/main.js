@@ -1,7 +1,7 @@
 const comment = ''; //Строка с комментарием
 const LENGTH_COMMENT = 140;
 
-function returnRandomInt (min, max) {
+const returnRandomInt = (min, max) => {
   if (min > 0 && max > 0) {
     if (min > max) {         //меняет местами min и max если  min > max
       const variable = min;
@@ -14,12 +14,9 @@ function returnRandomInt (min, max) {
   return false;
 }
 
-function checkCommentLenght (string, length) {    //сравнивает строку с максимальным колличеством символов
-  if (string.length <= length) {
-    return true;
-  }
-  return false;
-}
+const checkCommentLenght = (string, length) => string.length <= length;    //сравнивает строку с максимальным колличеством символов
+  
 
-returnRandomInt (5, 7);
-checkCommentLenght (comment, LENGTH_COMMENT);
+
+console.log(returnRandomInt (11, 5));
+console.log(checkCommentLenght (comment, LENGTH_COMMENT));
