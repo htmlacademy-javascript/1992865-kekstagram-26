@@ -12,7 +12,7 @@ const returnRandomInt = (min, max) => {
     return Math.floor(rand);
   }
   return false;
-}
+};
 
 const checkCommentLenght = (string, length) => string.length <= length;    //сравнивает строку с максимальным колличеством символов
 
