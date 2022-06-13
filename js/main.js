@@ -14,7 +14,4 @@ const returnRandomInt = (min, max) => {
   return false;
 }
 
-const checkCommentLenght = (string, length) => string.length <= length;    //сравнивает строку с максимальным колличеством символов
-
-console.log(returnRandomInt (11, 5));
-console.log(checkCommentLenght (comment, LENGTH_COMMENT));
+const checkCommentLenght = (string, length) => string.length <= length;   //сравнивает строку с максимальным колличеством символов
