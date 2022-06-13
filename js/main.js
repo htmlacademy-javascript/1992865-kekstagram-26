@@ -1,7 +1,7 @@
 const comment = ''; //Строка с комментарием
 const LENGTH_COMMENT = 140;
 
-function returnRandomInt (min, max) {
+const returnRandomInt = (min, max) => {
   if (min > 0 && max > 0) {
     if (min > max) {         //меняет местами min и max если  min > max
       const variable = min;
