@@ -34,13 +34,11 @@ const getRandomPositiveInteger = (a, b) => {     //Возвращает ранд
   return Math.floor(result);
 };
 
-const getRandomArrayElement = (element) => {
-  element [getRandomPositiveInteger (0, element.length - 1)];
-};
+const getRandomArrayElement = (element) => element [getRandomPositiveInteger (0, element.length - 1)];  //Выбирает из массива рандомный элемент
 
 const checkCommentLenght = (string, length) => string.length <= length;    //сравнивает строку с максимальным колличеством символов
 
-const createPhotosComments = () => {
+const createPhotoComments = () => {
   const photosComments = {
     id: commentsIdCount++,
     avatar: `img/avatar-${getRandomPositiveInteger(1, 6)}.svg`,
@@ -48,7 +46,7 @@ const createPhotosComments = () => {
     name: getRandomArrayElement (names),
   };
   return photosComments;
-};
+};  //Создание объекта комментария
 
 const createPhotoDescription = () => {
   const photos = [];
@@ -58,11 +56,11 @@ const createPhotoDescription = () => {
       url: `photos/${totalPhotosDescription - ( i - 1 )} .jpg`,
       description: getRandomArrayElement (descriptions),
       likes: getRandomPositiveInteger (15, 200),
-      comments: Array.from ({length: getRandomPositiveInteger(1, 5)}, createPhotosComments),
+      comments: Array.from ({length: getRandomPositiveInteger(1, 5)}, createPhotoComments),
     });
   }
   return photos;
-};
+};  //Создание объекта описания фотографии
 
 createPhotoDescription();
 getRandomPositiveInteger (100, 5);
