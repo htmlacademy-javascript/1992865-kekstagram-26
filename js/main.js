@@ -9,7 +9,7 @@ const descriptions = [
   'Картина маслом',
   'Произведение искуства',
   'Пейзаж'
-  ];
+];
 const messages = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -17,7 +17,7 @@ const messages = [
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают.Как можно было поймать такой неудачный момент?!'
-  ];
+];
 const names = [
   'Игорь',
   'Влас',
@@ -25,7 +25,7 @@ const names = [
   'Алишер',
   'Роман',
   'Арсений'
-  ];
+];
 
 const getRandomPositiveInteger = (a, b) => {     //Возвращает рандомное число в положительном диапазоне
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
@@ -36,22 +36,22 @@ const getRandomPositiveInteger = (a, b) => {     //Возвращает ранд
 
 const getRandomArrayElement = (element) => {
   return element [getRandomPositiveInteger (0, element.length - 1)];
-}
+};
 
 const checkCommentLenght = (string, length) => string.length <= length;    //сравнивает строку с максимальным колличеством символов
 
 const createPhotosComments = () => {
-  let photosComments = {
-    id: commentsIdCount++, 
+  const photosComments = {
+    id: commentsIdCount++,
     avatar: `img/avatar-${getRandomPositiveInteger(1, 6)}.svg`,
     message: getRandomArrayElement (messages),
     name: getRandomArrayElement (names),
+    
   };
   return photosComments;
 };
 
 const createPhotoDescription = () => {
-  let commentsIdCount = 0;
   let photos = [];
   for ( let i = 1; i <= totalPhotosDescription; i++ ) {
     photos.push( {
