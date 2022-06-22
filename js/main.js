@@ -35,7 +35,7 @@ const getRandomPositiveInteger = (a, b) => {     //Возвращает ранд
 };
 
 const getRandomArrayElement = (element) => {
-  return element [getRandomPositiveInteger (0, element.length - 1)];
+  element [getRandomPositiveInteger (0, element.length - 1)];
 };
 
 const checkCommentLenght = (string, length) => string.length <= length;    //сравнивает строку с максимальным колличеством символов
@@ -46,13 +46,12 @@ const createPhotosComments = () => {
     avatar: `img/avatar-${getRandomPositiveInteger(1, 6)}.svg`,
     message: getRandomArrayElement (messages),
     name: getRandomArrayElement (names),
-    
   };
   return photosComments;
 };
 
 const createPhotoDescription = () => {
-  let photos = [];
+  const photos = [];
   for ( let i = 1; i <= totalPhotosDescription; i++ ) {
     photos.push( {
       id: i,
