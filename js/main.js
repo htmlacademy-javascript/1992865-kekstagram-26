@@ -65,7 +65,6 @@ const createPhotoDescription = () => {
   return photos;
 };
 
-console.log (commentsIdCount);
-console.log (createPhotoDescription());
+createPhotoDescription();
 getRandomPositiveInteger (100, 5);
 checkCommentLenght (comment, LENGTH_COMMENT);
