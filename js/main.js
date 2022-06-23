@@ -27,17 +27,6 @@ const NAMES = [
   'Арсений'
 ];
 
-const createPhotoDescription = (i) => {
-  const photo = {
-    id: i + 1,
-    url: `photos/${i + 1}.jpg`,
-    description: getRandomArrayElement(DESCRIPTIONS),
-    likes: getRandomPositiveInteger(15, 200),
-    comments: Array.from({ length: getRandomPositiveInteger(1, 5) }, createPhotoComments),
-  };
-  return photo;
-};  //Создание объекта описания фотографии
-
 const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -58,6 +47,17 @@ const createPhotoComments = () => {
   };
   return photosComments;
 };  //Создание объекта комментария
+
+const createPhotoDescription = (i) => {
+  const photo = {
+    id: i + 1,
+    url: `photos/${i + 1}.jpg`,
+    description: getRandomArrayElement(DESCRIPTIONS),
+    likes: getRandomPositiveInteger(15, 200),
+    comments: Array.from({ length: getRandomPositiveInteger(1, 5) }, createPhotoComments),
+  };
+  return photo;
+}; //Создание объекта описания фотографии
 
 const photos = Array.from ({length: TOTAL_PHOTOS_DESCRIPTION}, (v, i) => createPhotoDescription (i));  //Создание массива фотографий
 
