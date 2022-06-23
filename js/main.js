@@ -40,12 +40,12 @@ const checkCommentLenght = (string, length) => string.length <= length;    //с�
 
 const createPhotoDescription = (i) => {
   const photo = {
-      id: i + 1,
-      url: `photos/${i + 1}.jpg`,
-      description: getRandomArrayElement(DESCRIPTIONS),
-      likes: getRandomPositiveInteger(15, 200),
-      comments: Array.from({ length: getRandomPositiveInteger(1, 5) }, createPhotoComments),
-    }
+    id: i + 1,
+    url: `photos/${i + 1}.jpg`,
+    description: getRandomArrayElement(DESCRIPTIONS),
+    likes: getRandomPositiveInteger(15, 200),
+    comments: Array.from({ length: getRandomPositiveInteger(1, 5) }, createPhotoComments),
+  };
   return photo;
 };  //Создание объекта описания фотографии
 
@@ -59,7 +59,7 @@ const createPhotoComments = () => {
   return photosComments;
 };  //Создание объекта комментария
 
-let photos = Array.from ({length: TOTAL_PHOTOS_DESCRIPTION}, (v, i) => createPhotoDescription (i));  //Создание массива фотографий
+const photos = Array.from ({length: TOTAL_PHOTOS_DESCRIPTION}, (v, i) => createPhotoDescription (i));  //Создание массива фотографий
 
 getRandomPositiveInteger (100, 5);
 checkCommentLenght (comment, LENGTH_COMMENT);
