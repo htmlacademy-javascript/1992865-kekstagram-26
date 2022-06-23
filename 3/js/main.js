@@ -1,8 +1,8 @@
 const comment = ''; //Строка с комментарием
 const LENGTH_COMMENT = 140;
-const totalPhotosDescription = 25;
-let commentsIdCount = totalPhotosDescription + 1;
-const descriptions = [
+const TOTAL_PHOTOS_DESCRIPTION = 25;
+let commentsIdCount = TOTAL_PHOTOS_DESCRIPTION + 1;
+const DESCRIPTIONS = [
   'Удачное фото',
   'Просто прогулка',
   'Красивый вид',
@@ -10,7 +10,7 @@ const descriptions = [
   'Произведение искуства',
   'Пейзаж'
 ];
-const messages = [
+const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -18,7 +18,7 @@ const messages = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают.Как можно было поймать такой неудачный момент?!'
 ];
-const names = [
+const NAMES = [
   'Игорь',
   'Влас',
   'Еремей',
@@ -27,12 +27,12 @@ const names = [
   'Арсений'
 ];
 
-const getRandomPositiveInteger = (a, b) => {     //Возвращает рандомное число в положительном диапазоне
+const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
-};
+};  //Возвращает рандомное число в положительном диапазоне
 
 const getRandomArrayElement = (element) => element [getRandomPositiveInteger (0, element.length - 1)];  //Выбирает из массива рандомный элемент
 
@@ -42,26 +42,24 @@ const createPhotoComments = () => {
   const photosComments = {
     id: commentsIdCount++,
     avatar: `img/avatar-${getRandomPositiveInteger(1, 6)}.svg`,
-    message: getRandomArrayElement (messages),
-    name: getRandomArrayElement (names),
+    message: getRandomArrayElement (MESSAGES),
+    name: getRandomArrayElement (NAMES),
   };
   return photosComments;
 };  //Создание объекта комментария
 
-const createPhotoDescription = () => {
-  const photos = [];
-  for ( let i = 1; i <= totalPhotosDescription; i++ ) {
-    photos.push( {
-      id: i,
-      url: `photos/${totalPhotosDescription - ( i - 1 )} .jpg`,
-      description: getRandomArrayElement (descriptions),
-      likes: getRandomPositiveInteger (15, 200),
-      comments: Array.from ({length: getRandomPositiveInteger(1, 5)}, createPhotoComments),
-    });
-  }
-  return photos;
-};  //Создание объекта описания фотографии
+const createPhotoDescription = (i) => {
+  const photo = {
+    id: i + 1,
+    url: `photos/${i + 1}.jpg`,
+    description: getRandomArrayElement(DESCRIPTIONS),
+    likes: getRandomPositiveInteger(15, 200),
+    comments: Array.from({ length: getRandomPositiveInteger(1, 5) }, createPhotoComments),
+  };
+  return photo;
+}; //Создание объекта описания фотографии
+// eslint-disable-next-line
+const photos = Array.from ({length: TOTAL_PHOTOS_DESCRIPTION}, (v, i) => createPhotoDescription (i));  //Создание массива фотографий
 
-createPhotoDescription();
 getRandomPositiveInteger (100, 5);
 checkCommentLenght (comment, LENGTH_COMMENT);
