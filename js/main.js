@@ -60,6 +60,6 @@ const createPhotoComments = () => {
 };  //Создание объекта комментария
 
 let photos = Array.from ({length: TOTAL_PHOTOS_DESCRIPTION}, (v, i) => createPhotoDescription (i));  //Создание массива фотографий
-console.log (photos);
+
 getRandomPositiveInteger (100, 5);
 checkCommentLenght (comment, LENGTH_COMMENT);
