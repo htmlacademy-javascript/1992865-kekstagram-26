@@ -1,4 +1,4 @@
-import {getRandomPositiveInteger, getRandomArrayElement, checkCommentLenght} from './utility.js';
+import {getRandomPositiveInteger, getRandomArrayElement} from './utility.js';
 
 const TOTAL_PHOTOS_DESCRIPTION = 25;  //Количество добавляемых фотографий
 let commentsIdCount = TOTAL_PHOTOS_DESCRIPTION + 1;  //счетчик id коментариев
