@@ -2,8 +2,6 @@ import {getRandomPositiveInteger, getRandomArrayElement, checkCommentLenght} fro
 
 const TOTAL_PHOTOS_DESCRIPTION = 25;  //Количество добавляемых фотографий
 let commentsIdCount = TOTAL_PHOTOS_DESCRIPTION + 1;  //счетчик id коментариев
-const comment = ''; //Строка с комментарием
-const LENGTH_COMMENT = 140;  //Максимальная длинна комментария
 
 const DESCRIPTIONS = [
   'Удачное фото',
@@ -53,10 +51,6 @@ const createPhotoDescription = (i) => {
   return photo;
 }; //Создание объекта описания фотографии
 
-// eslint-disable-next-line
 const photos = Array.from ({length: TOTAL_PHOTOS_DESCRIPTION}, (v, i) => createPhotoDescription (i));  //Создание массива фотографий
-// Игнор для ESLint, переменная нигде не используется
-
-checkCommentLenght (comment, LENGTH_COMMENT);
 
 export {photos};
