@@ -1,4 +1,4 @@
-import {photos} from './data-creation.js'
+import {photos} from './data-creation.js';
 
 const pictures = document.querySelector ('.pictures');
 const pictureTemplate = document.querySelector('#picture').content;
