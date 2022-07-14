@@ -1,7 +1,5 @@
 import {photos} from './data-creation.js'
 
-console.log(photos[0]);
-
 const pictures = document.querySelector ('.pictures');
 const pictureTemplate = document.querySelector('#picture').content;
 const similarListFragment = document.createDocumentFragment();
