@@ -4,13 +4,15 @@ const pictures = document.querySelector ('.pictures');
 const pictureTemplate = document.querySelector('#picture').content;
 const similarListFragment = document.createDocumentFragment();
 
-photos.forEach(({url, likes, comments}) => {
-  const photoElement = pictureTemplate.cloneNode(true);
-  photoElement.querySelector('.picture__img').src = url;
-  photoElement.querySelector('.picture__likes').textContent = likes;
-  photoElement.querySelector('.picture__comments').textContent = comments.length + 1;
+const addingPhoto = (photographies) => {
+  photographies.forEach(({url, likes, comments}) => {
+    const photographiesElement = pictureTemplate.cloneNode(true);
+    photographiesElement.querySelector('.picture__img').src = url;
+    photographiesElement.querySelector('.picture__likes').textContent = likes;
+    photographiesElement.querySelector('.picture__comments').textContent = comments.length;
+    similarListFragment.append(photographiesElement);
+  });
+};
 
-  similarListFragment.append(photoElement);
-});
-
+addingPhoto(photos);
 pictures.append(similarListFragment);
