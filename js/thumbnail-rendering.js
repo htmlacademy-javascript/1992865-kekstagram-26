@@ -10,7 +10,6 @@ const addingPhoto = (photographies) => {
     photographiesElement.querySelector('.picture__img').src = url;
     photographiesElement.querySelector('.picture__likes').textContent = likes;
     photographiesElement.querySelector('.picture__comments').textContent = comments.length;
-    
     similarListFragment.append(photographiesElement);
   });
 };
