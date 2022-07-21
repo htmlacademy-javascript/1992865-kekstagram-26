@@ -1,39 +1,16 @@
-/*
-1. Заведите модуль, который будет отвечать за отрисовку окна с полноразмерным изображением. ++
-
-2. Для отображения окна нужно удалять класс hidden у элемента .big-picture и каждый раз заполнять его данными о конкретной фотографии:
-
-  - Адрес изображения url подставьте как src изображения внутри блока .big-picture__img. ++
-
-  - Количество лайков likes подставьте как текстовое содержание элемента .likes-count. ++
-
-  - Количество комментариев comments подставьте как текстовое содержание элемента .comments-count. ++
-
-  - Список комментариев под фотографией: комментарии должны вставляться в блок .social__comments.
-
-  - Описание фотографии description вставьте строкой в блок .social__caption. ++
-
-3. После открытия окна спрячьте блоки счётчика комментариев .social__comment-count и загрузки новых комментариев .comments-loader, добавив им класс hidden, с ними мы разберёмся позже, в другом домашнем задании.
-
-4. После открытия окна добавьте тегу <body> класс .modal-open, чтобы контейнер с фотографиями позади не прокручивался при скролле.При закрытии окна не забудьте удалить этот класс. ++
-
-5. Напишите код для закрытия окна по нажатию клавиши Esc и клике по иконке закрытия.++
-
-6. Подключите модуль в проект.++
-*/
 import {photos} from './data-creation.js';
-
 const pictures = document.querySelectorAll ('.picture');
 const body = document.querySelector ('body');
 const bigPictureElement = document.querySelector ('.big-picture');
 const buttonBigPictureCancel = bigPictureElement.querySelector ('.big-picture__cancel');
-const socialComments = bigPictureElement.querySelector('.social__comments');
 
 const addingPhotoComments = (index) => {
-  //console.log(socialComments);
+  const socialComments = bigPictureElement.querySelector('.social__comments');
+  const socialComment = bigPictureElement.querySelector('.social__comment');
+  socialComments.innerHTML = '';
   const similarListFragment = document.createDocumentFragment();
   photos[index].comments.forEach(({avatar, name, message}) => {
-    const photosCommentsClone = bigPictureElement.querySelector('.social__comment').cloneNode(true);
+    const photosCommentsClone = socialComment.cloneNode(true);
     photosCommentsClone.querySelector('.social__picture').src = avatar;
     photosCommentsClone.querySelector('.social__picture').alt = name;
     photosCommentsClone.querySelector('.social__text').textContent = message;
@@ -45,12 +22,13 @@ const addingPhotoComments = (index) => {
 const onBigPictureEscKeydown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
-    closeBigPicture();
+    // eslint-disable-next-line no-use-before-define
+    closeBigPicture(); //не понял почему linter ругается на это, т.к. это ни где в критериях не запрещенно
   }
 };
 
-const openBigPicture = (pictures, photogphiess) => {
-  pictures.forEach ((element, index) => {
+const openBigPicture = (picture, photogphiess) => {
+  picture.forEach ((element, index) => {
     element.addEventListener('click', () => {
       bigPictureElement.classList.remove('hidden');
       body.classList.add('modal-open');
