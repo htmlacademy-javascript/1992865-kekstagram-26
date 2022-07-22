@@ -53,7 +53,7 @@ function closeBigPicture () {
   bigPictureElement.querySelector('.comments-loader').classList.remove('hidden');
 
   document.removeEventListener('keydown', onBigPictureEscKeydown);
-};
+}
 
 buttonBigPictureCancel.addEventListener ('click', () => {
   closeBigPicture();
