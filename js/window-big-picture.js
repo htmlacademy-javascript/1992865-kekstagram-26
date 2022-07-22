@@ -21,7 +21,7 @@ const addingPhotoComments = (index) => {
   });
 };
 
-const onBigPictureEscKeydown = function (evt) {
+const onBigPictureEscKeydown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     closeBigPicture();
@@ -46,7 +46,7 @@ const openBigPicture = (picture, photogphiess) => {
   document.addEventListener('keydown', onBigPictureEscKeydown);
 };
 
-const closeBigPicture = () => {
+function closeBigPicture () {
   bigPictureElement.classList.add('hidden');
   body.classList.remove('modal-open');
   bigPictureElement.querySelector('.social__comment-count').classList.remove('hidden');
