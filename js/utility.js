@@ -9,4 +9,13 @@ const getRandomArrayElement = (element) => element [getRandomPositiveInteger (0,
 
 const checkCommentLenght = (string, length) => string.length <= length;    //сравнивает строку с максимальным колличеством символов
 
-export {getRandomPositiveInteger, getRandomArrayElement, checkCommentLenght};
+const openModal = () => {
+  const body = document.body;
+  if (!body.classList.contains('modal-open')) {
+    body.classList.add('modal-open');
+  } else {
+    body.classList.remove('modal-open');
+  };
+};//Добавляет или удаляет класс модалного окна на body
+
+export {getRandomPositiveInteger, getRandomArrayElement, checkCommentLenght,openModal};
