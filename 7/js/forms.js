@@ -50,8 +50,8 @@ pristine.addValidator(inputTextHashtags, () => {
   const uniqueTextHashtagSplit = new Set(textHashtagSplit());
   return uniqueTextHashtagSplit.size === textHashtagSplit().length;
 }, 'Не может быть одинаковых тегов');
-pristine.addValidator(inputTextHashtags, () => textHashtagSplit().every((value) => value.length >= 2 && value.length <= 20), 'Хештег содержит не более 20 знаков включительно');
-pristine.addValidator(inputTextHashtags, () => textHashtagSplit().every((value) => /^#[A-Za-zА-Яа-яЁё0-9]{0,}$/.test(value)), 'Хештег начинается с # состоит из букв и чисел и сод');
+pristine.addValidator(inputTextHashtags, () => inputTextHashtags.value === '' || textHashtagSplit().every((value) => value.length >= 2 && value.length <= 20), 'Хештег содержит не более 20 знаков включительно');
+pristine.addValidator(inputTextHashtags, () => inputTextHashtags.value === '' || textHashtagSplit().every((value) => /^#[A-Za-zА-Яа-яЁё0-9]{0,}$/.test(value)), 'Хештег начинается с # состоит из букв и чисел и сод');
 
 form.addEventListener ('submit', (evt) => {
   evt.preventDefault();
