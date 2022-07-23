@@ -15,7 +15,7 @@ const openModal = () => {
     body.classList.add('modal-open');
   } else {
     body.classList.remove('modal-open');
-  };
+  }
 };//Добавляет или удаляет класс модалного окна на body
 
 export {getRandomPositiveInteger, getRandomArrayElement, checkCommentLenght,openModal};
