@@ -1,5 +1,6 @@
 const scaleElement = document.querySelector('.scale');
-const inputScaleControlValue = document.querySelector('.scale__control--value');
+const inputScaleControlValue = scaleElement.querySelector('.scale__control--value');
+const imgUploadPreview = document.querySelector('.img-upload__preview');
 let percent = 100;
 
 inputScaleControlValue.value = `${percent}%`;
@@ -17,4 +18,6 @@ scaleElement.addEventListener('click', (evt) => {
       }
     }
   }
+  inputScaleControlValue.value = `${percent}%`;
+  imgUploadPreview.style.transform = `scale(${percent / 100})`;
 });
