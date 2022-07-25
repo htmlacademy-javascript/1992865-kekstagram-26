@@ -1,3 +1,4 @@
+import './image-scale.js';
 import {openModal} from './utility.js';
 
 const form = document.querySelector('.img-upload__form');
