@@ -41,6 +41,7 @@ function closeUploadOverlay () {
 file.addEventListener('change', () => {
   openUploadOverlay();
 });
+
 buttonCloseUploadOverley.addEventListener('click', () => {
   closeUploadOverlay ();
 });
@@ -54,6 +55,7 @@ pristine.addValidator(inputTextHashtags, () => inputTextHashtags.value === '' ||
 pristine.addValidator(inputTextHashtags, () => inputTextHashtags.value === '' || textHashtagSplit().every((value) => /^#[A-Za-zА-Яа-яЁё0-9]{0,}$/.test(value)), 'Хештег начинается с # состоит из букв и чисел и сод');
 
 form.addEventListener ('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+  if (!pristine.validate()) {
+    evt.preventDefault();
+  }
 });
