@@ -1,6 +1,8 @@
 import './image-scale.js';
 import './image-effects.js';
 import {openModal} from './utility.js';
+import {scalingImage} from './image-scale.js';
+import {defaultFilter} from './image-effects.js';
 
 const form = document.querySelector('.img-upload__form');
 const pristine = new Pristine(form, {
@@ -28,6 +30,8 @@ const onUploadOverlayKeyKeydown = (evt) => {
 const openUploadOverlay = () => {
   imgUploadWindow.classList.remove('hidden');
   openModal();
+  scalingImage();
+  defaultFilter();
 
   document.addEventListener ('keydown', onUploadOverlayKeyKeydown);
 };

@@ -3,7 +3,10 @@ const inputScaleControlValue = scaleElement.querySelector('.scale__control--valu
 const imgUploadPreview = document.querySelector('.img-upload__preview');
 let percent = 100;
 
-inputScaleControlValue.value = `${percent}%`;
+const scalingImage = () => {
+  inputScaleControlValue.value = `${percent}%`; //
+  imgUploadPreview.style.transform = `scale(${percent / 100})`;
+}; //Приминение масштабирования картинки и запись в value
 
 scaleElement.addEventListener('click', (evt) => {
   evt.preventDefault();
@@ -18,6 +21,7 @@ scaleElement.addEventListener('click', (evt) => {
       }
     }
   }
-  inputScaleControlValue.value = `${percent}%`;
-  imgUploadPreview.style.transform = `scale(${percent / 100})`;
-});
+  scalingImage();
+}); //Определение % процента масштабирования картинки
+
+export {scalingImage};
