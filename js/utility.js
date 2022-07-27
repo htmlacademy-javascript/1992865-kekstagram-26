@@ -18,4 +18,25 @@ const openModal = () => {
   }
 };//Добавляет или удаляет класс модалного окна на body
 
-export {getRandomPositiveInteger, getRandomArrayElement, checkCommentLenght,openModal};
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zindex = '100';
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '0';
+  alertContainer.style.right = '0';
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.background = 'red';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, 5000);
+};
+
+export {getRandomPositiveInteger, getRandomArrayElement, checkCommentLenght,openModal, showAlert};

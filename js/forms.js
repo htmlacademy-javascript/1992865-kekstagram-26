@@ -3,6 +3,8 @@ import './image-effects.js';
 import {openModal} from './utility.js';
 import {scalingImage} from './image-scale.js';
 import {defaultFilter} from './image-effects.js';
+import {sendData} from './api.js';
+import {showAlert} from './utility.js';
 
 const form = document.querySelector('.img-upload__form');
 const pristine = new Pristine(form, {
@@ -60,8 +62,22 @@ pristine.addValidator(inputTextHashtags, () => {
 pristine.addValidator(inputTextHashtags, () => inputTextHashtags.value === '' || textHashtagSplit().every((value) => value.length >= 2 && value.length <= 20), 'Хештег содержит не более 20 знаков включительно');
 pristine.addValidator(inputTextHashtags, () => inputTextHashtags.value === '' || textHashtagSplit().every((value) => /^#[A-Za-zА-Яа-яЁё0-9]{0,}$/.test(value)), 'Хештег начинается с # состоит из букв и чисел и сод');
 
-form.addEventListener ('submit', (evt) => {
-  if (!pristine.validate()) {
+
+const setUserFormSubmit = (onSucces) => {
+  form.addEventListener ('submit', (evt) => {
     evt.preventDefault();
-  }
-});
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      sendData(
+        onSucces ()
+        , showAlert('Не получилось отправить форму'),
+        new FormData(evt.target)
+      );
+    }
+  });
+};
+
+setUserFormSubmit(closeUploadOverlay);
+
+export {setUserFormSubmit, openUploadOverlay, closeUploadOverlay};
