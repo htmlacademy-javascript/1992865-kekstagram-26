@@ -1,4 +1,8 @@
+import './image-scale.js';
+import './image-effects.js';
 import {openModal} from './utility.js';
+import {scalingImage} from './image-scale.js';
+import {defaultFilter} from './image-effects.js';
 
 const form = document.querySelector('.img-upload__form');
 const pristine = new Pristine(form, {
@@ -26,6 +30,8 @@ const onUploadOverlayKeyKeydown = (evt) => {
 const openUploadOverlay = () => {
   imgUploadWindow.classList.remove('hidden');
   openModal();
+  scalingImage();
+  defaultFilter();
 
   document.addEventListener ('keydown', onUploadOverlayKeyKeydown);
 };
@@ -41,6 +47,7 @@ function closeUploadOverlay () {
 file.addEventListener('change', () => {
   openUploadOverlay();
 });
+
 buttonCloseUploadOverley.addEventListener('click', () => {
   closeUploadOverlay ();
 });
@@ -54,6 +61,7 @@ pristine.addValidator(inputTextHashtags, () => inputTextHashtags.value === '' ||
 pristine.addValidator(inputTextHashtags, () => inputTextHashtags.value === '' || textHashtagSplit().every((value) => /^#[A-Za-zА-Яа-яЁё0-9]{0,}$/.test(value)), 'Хештег начинается с # состоит из букв и чисел и сод');
 
 form.addEventListener ('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+  if (!pristine.validate()) {
+    evt.preventDefault();
+  }
 });
