@@ -1,9 +1,5 @@
-import {getData} from './api.js';
-import {showAlert} from './utility.js';
-
 const pictures = document.querySelector ('.pictures');
 const pictureTemplate = document.querySelector('#picture').content;
-
 
 const addingPhoto = (photographies) => {
   const similarListFragment = document.createDocumentFragment();
@@ -15,8 +11,7 @@ const addingPhoto = (photographies) => {
     similarListFragment.append(photographiesElement);
     pictures.append(similarListFragment);
   });
-}; //Добавление фотографий на главную станицу сайта
 
-getData(addingPhoto, showAlert('Не удалось получить данные'));
+}; //Добавление фотографий на главную станицу сайта
 
 export {addingPhoto};

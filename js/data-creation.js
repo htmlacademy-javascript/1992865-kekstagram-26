@@ -55,4 +55,4 @@ const createPhotoDescription = (i) => {
 const photos = Array.from ({length: TOTAL_PHOTOS_DESCRIPTION}, (v, i) => createPhotoDescription (i));  //Создание массива фотографий
 
 
-export {photos};
+//export {photos};

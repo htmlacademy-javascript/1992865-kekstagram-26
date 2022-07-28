@@ -1,6 +1,6 @@
-const getRandomPositiveInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+const getRandomPositiveInteger = (minimumNumber, maximumNumber) => {
+  const lower = Math.ceil(Math.min(Math.abs(minimumNumber), Math.abs(maximumNumber)));
+  const upper = Math.floor(Math.max(Math.abs(minimumNumber), Math.abs(maximumNumber)));
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
 };  //Возвращает рандомное число в положительном диапазоне
@@ -39,4 +39,12 @@ const showAlert = (message) => {
   }, 5000);
 };
 
-export {getRandomPositiveInteger, getRandomArrayElement, checkCommentLenght,openModal, showAlert};
+const showAlertSendingData = (message) => {
+  const alertMessageFragment = document.createDocumentFragment();
+  const alertTemplate = document.querySelector (message).content;
+  const alertClone = alertTemplate.cloneNode(true);
+  alertMessageFragment.append(alertClone);
+  document.body.append(alertMessageFragment);
+};
+
+export {getRandomPositiveInteger, getRandomArrayElement, checkCommentLenght,openModal, showAlert, showAlertSendingData};

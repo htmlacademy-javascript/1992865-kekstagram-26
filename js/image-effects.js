@@ -1,4 +1,4 @@
-const effectsList = document.querySelector('.effects__list');
+const effectList = document.querySelector('.effects__list');
 const imgUploadPreviewElement = document.querySelector('.img-upload__preview img');
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectLevelValueElement = document.querySelector('.effect-level__value');
@@ -27,12 +27,13 @@ noUiSlider.create(sliderElement, {
 const defaultFilter = () => {
   removeAttribute(imgUploadPreviewElement, 'class');  //Удаление класса фильтра у картинки
   removeAttribute(imgUploadPreviewElement, 'style');  //Удаление стиля фильтра у картинки
-  sliderElement.setAttribute('disabled', true); //деактивация слайдера
+  sliderElement.classList.add('hidden');  //деактивация слайдера
   imgUploadPreviewElement.classList.add('effects__preview--none'); //Класс без фильтров
 }; //
 
-effectsList.addEventListener ('change', (evt) => {
+effectList.addEventListener ('change', (evt) => {
   evt.preventDefault();
+
   if (evt.target.id !== 'effect-none') {
     sliderElement.noUiSlider.on('update', () => {
       effectLevelValueElement.value = sliderElement.noUiSlider.get(); //Запись данных слайдера в форму
@@ -69,6 +70,7 @@ effectsList.addEventListener ('change', (evt) => {
     case 'effect-chrome':
       imgUploadPreviewElement.classList.add('effects__preview--chrome');
       sliderElement.removeAttribute('disabled');
+      sliderElement.classList.remove('hidden');
       sliderElement.noUiSlider.updateOptions({
         range: {
           min: 0,
@@ -82,6 +84,7 @@ effectsList.addEventListener ('change', (evt) => {
     case 'effect-sepia':
       imgUploadPreviewElement.classList.add('effects__preview--sepia');
       sliderElement.removeAttribute('disabled');
+      sliderElement.classList.remove('hidden');
       sliderElement.noUiSlider.updateOptions({
         range: {
           min: 0,
@@ -95,6 +98,7 @@ effectsList.addEventListener ('change', (evt) => {
     case 'effect-marvin':
       imgUploadPreviewElement.classList.add('effects__preview--marvin');
       sliderElement.removeAttribute('disabled');
+      sliderElement.classList.remove('hidden');
       sliderElement.noUiSlider.updateOptions({
         range: {
           min: 0,
@@ -108,6 +112,7 @@ effectsList.addEventListener ('change', (evt) => {
     case 'effect-phobos':
       imgUploadPreviewElement.classList.add('effects__preview--phobos');
       sliderElement.removeAttribute('disabled');
+      sliderElement.classList.remove('hidden');
       sliderElement.noUiSlider.updateOptions({
         range: {
           min: 0,
@@ -121,6 +126,7 @@ effectsList.addEventListener ('change', (evt) => {
     case 'effect-heat':
       imgUploadPreviewElement.classList.add('effects__preview--heat');
       sliderElement.removeAttribute('disabled');
+      sliderElement.classList.remove('hidden');
       sliderElement.noUiSlider.updateOptions({
         range: {
           min: 1,
@@ -129,8 +135,6 @@ effectsList.addEventListener ('change', (evt) => {
         start: 3,
         step: 0.1
       });
-      /*let effectsPreviewHeatElement = effectsList.querySelector('.effects__preview--heat');
-      effectsPreviewHeatElement.style.filter = `brightness()`;*/
       break;
   } //Выбор фильтра
 });
