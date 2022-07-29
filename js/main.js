@@ -6,9 +6,10 @@ import './window-big-picture.js';
 import {getData} from './api.js';
 import {showAlert} from './utility.js';
 import {addingPhoto} from './thumbnail-rendering.js';
+import {openBigPicture} from './window-big-picture.js';
 
-const photos = [];
-
-getData(addingPhoto, showAlert, photos);
-
-export {photos};
+getData((photos) => {
+  addingPhoto(photos);
+  openBigPicture(photos);
+},
+showAlert);

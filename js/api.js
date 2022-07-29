@@ -1,11 +1,10 @@
-const getData = (onSucces, onFaili, photos) => {
+const getData = (onSucces, onFaili) => {
   fetch('https://26.javascript.pages.academy/kekstagram/data')
     .then((response) =>
       response.json()
     )
     .then((data) => {
       onSucces(data);
-      photos.push(...data);
     })
     .catch(() => {
       onFaili('При получении данных произошла ошибка');

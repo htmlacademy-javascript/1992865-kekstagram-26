@@ -1,23 +1,43 @@
-import {photos} from './main.js';
 import {openModal} from './utility.js';
 
-const pictures = document.querySelectorAll ('.picture');
 const bigPictureElement = document.querySelector ('.big-picture');
 const buttonBigPictureCancel = bigPictureElement.querySelector ('.big-picture__cancel');
+const socialCommentCount = document.querySelector('.social__comment-count span');
+const buttonCommentsLoader = document.querySelector('.comments-loader');
+const socialComments = bigPictureElement.querySelector('.social__comments');
+const socialComment = bigPictureElement.querySelector('.social__comment');
+const maximumOutputComments = 5;
 
-const addingPhotoComments = (photogphiess, index) => {
-  const socialComments = bigPictureElement.querySelector('.social__comments');
-  const socialComment = bigPictureElement.querySelector('.social__comment');
-  socialComments.innerHTML = '';
-  const similarListFragment = document.createDocumentFragment();
-  photogphiess[index].comments.forEach(({avatar, name, message}) => {
+const calculatesDisplayedComments= (listPhoto, index) => {
+  if (listPhoto[index].comments.length <= 5) {
+    socialCommentCount.textContent = `${listPhoto[index].comments.length}`;
+    buttonCommentsLoader.classList.add('hidden');
+  } else {
+    socialCommentCount.textContent = `${maximumOutputComments}`;
+  }
+}; //вычесляет колличество показанных комментариев
+
+const displaysSpecifiedNumberComments = (listPhoto, index, listFragment) => {
+  listPhoto[index].comments.slice(0, maximumOutputComments).forEach(({avatar, name, message}) => {
     const photosCommentsClone = socialComment.cloneNode(true);
     const socialPictureElementClone = photosCommentsClone.querySelector('.social__picture');
     socialPictureElementClone.src = avatar;
     socialPictureElementClone.alt = name;
     photosCommentsClone.querySelector('.social__text').textContent = message;
-    similarListFragment.append(photosCommentsClone);
-    socialComments.append(similarListFragment);
+    listFragment.append(photosCommentsClone);
+    socialComments.append(listFragment);
+  });
+};
+
+const addingPhotoComments = (photos, index) => {
+  socialComments.innerHTML = '';
+  const similarListFragment = document.createDocumentFragment();
+  calculatesDisplayedComments(photos, index);
+  displaysSpecifiedNumberComments(photos,index, similarListFragment);
+  buttonCommentsLoader.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    calculatesDisplayedComments(photos, index);
+    displaysSpecifiedNumberComments(photos,index, similarListFragment);
   });
 };
 
@@ -28,18 +48,17 @@ const onBigPictureEscKeydown = (evt) => {
   }
 };
 
-const openBigPicture = (photogphiess) => {
+const openBigPicture = (photos) => {
+  const pictures = document.querySelectorAll ('.picture');
   pictures.forEach ((element, index) => {
     element.addEventListener('click', () => {
       bigPictureElement.classList.remove('hidden');
       openModal();
-      bigPictureElement.querySelector('.big-picture__img img').src = photogphiess[index].url;
-      bigPictureElement.querySelector('.likes-count').textContent = photogphiess[index].likes;
-      bigPictureElement.querySelector('.comments-count').textContent = photogphiess[index].comments.length;
-      bigPictureElement.querySelector('.social__caption').textContent = photogphiess[index].description;
-      bigPictureElement.querySelector('.social__comment-count').classList.add('hidden');
-      bigPictureElement.querySelector('.comments-loader').classList.add('hidden');
-      addingPhotoComments(photogphiess, index);
+      bigPictureElement.querySelector('.big-picture__img img').src = photos[index].url;
+      bigPictureElement.querySelector('.likes-count').textContent = photos[index].likes;
+      bigPictureElement.querySelector('.comments-count').textContent = photos[index].comments.length;
+      bigPictureElement.querySelector('.social__caption').textContent = photos[index].description;
+      addingPhotoComments(photos, index);
     });
   });
 
@@ -59,6 +78,6 @@ buttonBigPictureCancel.addEventListener ('click', () => {
   closeBigPicture();
 });
 
-openBigPicture(photos);
+//openBigPicture();
 
 export {openBigPicture};
