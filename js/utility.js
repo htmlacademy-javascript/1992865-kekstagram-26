@@ -37,7 +37,7 @@ const showAlert = (message) => {
   setTimeout(() => {
     alertContainer.remove();
   }, 5000);
-};
+}; //Сообщение о неудачной получении данных
 
 const showAlertSendingData = (message) => {
   const alertMessageFragment = document.createDocumentFragment();
@@ -45,6 +45,7 @@ const showAlertSendingData = (message) => {
   const alertClone = alertTemplate.cloneNode(true);
   alertMessageFragment.append(alertClone);
   document.body.append(alertMessageFragment);
-};
+
+}; //вывод сообщения о успешном или неудачной отправке фото
 
 export {getRandomPositiveInteger, getRandomArrayElement, checkCommentLenght,openModal, showAlert, showAlertSendingData};

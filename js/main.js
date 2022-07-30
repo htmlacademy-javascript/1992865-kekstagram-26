@@ -1,7 +1,10 @@
+//import './alert-forms';
+import './utility.js';
 import './api.js';
 import './thumbnail-rendering.js';
 import './forms.js';
 import './window-big-picture.js';
+import './filters-photos.js';
 
 import {getData} from './api.js';
 import {showAlert} from './utility.js';

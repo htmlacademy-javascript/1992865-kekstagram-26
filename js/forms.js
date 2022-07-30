@@ -1,5 +1,6 @@
 import './image-scale.js';
 import './image-effects.js';
+
 import {openModal} from './utility.js';
 import {scalingImage} from './image-scale.js';
 import {showAlertSendingData} from './utility.js';
@@ -7,7 +8,6 @@ import {defaultFilter} from './image-effects.js';
 import {sendData} from './api.js';
 
 const MAXIMUM_HASHTAGS = 5;
-
 
 const form = document.querySelector('.img-upload__form');
 const pristine = new Pristine(form, {
@@ -21,16 +21,24 @@ const pristine = new Pristine(form, {
 const file = form.querySelector ('.img-upload__input');
 const imgUploadWindow = form.querySelector ('.img-upload__overlay');
 const buttonCloseUploadOverley = form.querySelector('.img-upload__cancel');
+const fieldsetUploadText = form.querySelector('.img-upload__text');
 const inputTextHashtag = form.querySelector('.text__hashtags');
 
 const splitTextHashtag = () => inputTextHashtag.value.toLowerCase().split(' '); //Чтение хештегов в массив, преобразование в нижний регистр, отделение от друг друга пробелом
+
+fieldsetUploadText.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    evt.stopPropagation();
+  }
+}); //При фокусе на вводе хештега или комментария Escape не срабатывает
 
 const onUploadOverlayKeyKeydown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     closeUploadOverlay();
   }
-};
+}; //Закрытие окна загрузки фотографии по нажатию Escape
 
 const openUploadOverlay = () => {
   imgUploadWindow.classList.remove('hidden');
