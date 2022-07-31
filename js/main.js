@@ -5,14 +5,15 @@ import './thumbnail-rendering.js';
 import './forms.js';
 import './window-big-picture.js';
 import './filters-photos.js';
+import './uploaded-photo-form.js';
 
+import {showButtonFilter} from './filters-photos.js';
 import {getData} from './api.js';
 import {showAlert} from './utility.js';
-import {addingPhoto} from './thumbnail-rendering.js';
 import {openBigPicture} from './window-big-picture.js';
 
 getData((photos) => {
-  addingPhoto(photos);
+  showButtonFilter(photos);
   openBigPicture(photos);
 },
 showAlert);
