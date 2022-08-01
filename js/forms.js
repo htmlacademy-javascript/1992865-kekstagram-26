@@ -1,10 +1,13 @@
 import './image-scale.js';
 import './image-effects.js';
+
 import {openModal} from './utility.js';
 import {scalingImage} from './image-scale.js';
+import {showAlertSendingData} from './alert-forms.js';
 import {defaultFilter} from './image-effects.js';
 import {sendData} from './api.js';
-import {showAlert} from './utility.js';
+
+const MAXIMUM_HASHTAGS = 5;
 
 const form = document.querySelector('.img-upload__form');
 const pristine = new Pristine(form, {
@@ -18,16 +21,25 @@ const pristine = new Pristine(form, {
 const file = form.querySelector ('.img-upload__input');
 const imgUploadWindow = form.querySelector ('.img-upload__overlay');
 const buttonCloseUploadOverley = form.querySelector('.img-upload__cancel');
-const inputTextHashtags = form.querySelector('.text__hashtags');
+const fieldsetUploadText = form.querySelector('.img-upload__text');
+const inputTextHashtag = form.querySelector('.text__hashtags');
+const submitButton = form.querySelector('.img-upload__submit');
 
-const textHashtagSplit = () => inputTextHashtags.value.toLowerCase().split(' ');
+const splitTextHashtag = () => inputTextHashtag.value.toLowerCase().split(' '); //Чтение хештегов в массив, преобразование в нижний регистр, отделение от друг друга пробелом
+
+fieldsetUploadText.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    evt.stopPropagation();
+  }
+}); //При фокусе на вводе хештега или комментария Escape не срабатывает
 
 const onUploadOverlayKeyKeydown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     closeUploadOverlay();
   }
-};
+}; //Закрытие окна загрузки фотографии по нажатию Escape
 
 const openUploadOverlay = () => {
   imgUploadWindow.classList.remove('hidden');
@@ -54,13 +66,21 @@ buttonCloseUploadOverley.addEventListener('click', () => {
   closeUploadOverlay ();
 });
 
-pristine.addValidator(inputTextHashtags, () => textHashtagSplit().length <= 5, 'Не больше 5 хештегов');
-pristine.addValidator(inputTextHashtags, () => {
-  const uniqueTextHashtagSplit = new Set(textHashtagSplit());
-  return uniqueTextHashtagSplit.size === textHashtagSplit().length;
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+}; //Блокировать кнопку отправить
+
+const unblockSubmitButton =() => {
+  submitButton.disabled = false;
+}; //Разблокировать кнопку отправить
+
+pristine.addValidator(inputTextHashtag, () => splitTextHashtag().length <= MAXIMUM_HASHTAGS, 'Не больше 5 хештегов');
+pristine.addValidator(inputTextHashtag, () => {
+  const uniqueTextHashtagSplit = new Set(splitTextHashtag());
+  return uniqueTextHashtagSplit.size === splitTextHashtag().length;
 }, 'Не может быть одинаковых тегов');
-pristine.addValidator(inputTextHashtags, () => inputTextHashtags.value === '' || textHashtagSplit().every((value) => value.length >= 2 && value.length <= 20), 'Хештег содержит не более 20 знаков включительно');
-pristine.addValidator(inputTextHashtags, () => inputTextHashtags.value === '' || textHashtagSplit().every((value) => /^#[A-Za-zА-Яа-яЁё0-9]{0,}$/.test(value)), 'Хештег начинается с # состоит из букв и чисел и сод');
+pristine.addValidator(inputTextHashtag, () => inputTextHashtag.value === '' || splitTextHashtag().every((value) => value.length >= 2 && value.length <= 20), 'Хештег содержит не более 20 знаков включительно');
+pristine.addValidator(inputTextHashtag, () => inputTextHashtag.value === '' || splitTextHashtag().every((value) => /^#[A-Za-zА-Яа-яЁё0-9]{0,}$/.test(value)), 'Хештег начинается с # состоит из букв и чисел и сод');
 
 
 const setUserFormSubmit = (onSucces) => {
@@ -69,10 +89,17 @@ const setUserFormSubmit = (onSucces) => {
 
     const isValid = pristine.validate();
     if (isValid) {
-      sendData(
-        onSucces ()
-        , showAlert('Не получилось отправить форму'),
-        new FormData(evt.target)
+      blockSubmitButton();
+      sendData(() => {
+        onSucces();
+        unblockSubmitButton();
+        showAlertSendingData('#success');
+      },
+      () => {
+        showAlertSendingData('#error');
+        unblockSubmitButton();
+      }
+      , new FormData(evt.target)
       );
     }
   });
