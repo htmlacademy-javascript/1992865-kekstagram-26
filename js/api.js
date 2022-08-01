@@ -1,5 +1,3 @@
-//import {showButtonFilter} from './filters-photos.js';
-
 const getData = (onSucces, onFaili) => {
   fetch('https://26.javascript.pages.academy/kekstagram/data')
     .then((response) =>
@@ -7,7 +5,6 @@ const getData = (onSucces, onFaili) => {
     )
     .then((data) => {
       onSucces(data);
-      //showButtonFilter();
     })
     .catch(() => {
       onFaili('При получении данных произошла ошибка');

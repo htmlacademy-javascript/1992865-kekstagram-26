@@ -1,4 +1,5 @@
 import {addingPhoto} from './thumbnail-rendering.js';
+import {openBigPicture} from './window-big-picture.js';
 
 const imgFilter = document.querySelector('.img-filters');
 const imgFilterForm = imgFilter.querySelector('.img-filters__form');
@@ -9,26 +10,30 @@ const compareLikes = (PhotorgaphiesA, PhotorgaphiesB) => PhotorgaphiesB.likes - 
 const showButtonFilter = (photographies) => {
   if (imgFilterForm.querySelector('.img-filters__button--active').id === 'filter-default') {
     addingPhoto(photographies);
+    openBigPicture(photographies);
   } //Первый вывод фотографий, полученных с сервера
   imgFilter.classList.remove('img-filters--inactive');
   imgFilterForm.addEventListener('click', (evt) => {
     evt.preventDefault();
+    let reservPhotosList = photographies.slice();
     const buttonImgFilterActive = imgFilterForm.querySelector('.img-filters__button--active');
     buttonImgFilterActive.classList.remove('img-filters__button--active');
     evt.target.classList.add('img-filters__button--active');
     switch (evt.target.id) {
       case 'filter-default':
-        addingPhoto(photographies);
+        addingPhoto(reservPhotosList);
         break; //Вывод фотографий с фильтром "По умолчананию"
 
       case 'filter-random':
-        addingPhoto(photographies.slice().sort(() => 0.5 - Math.random()).slice(0, NUMBER_RANDOMLY_SHOWN_POTOS));
+        reservPhotosList = photographies.slice(0, NUMBER_RANDOMLY_SHOWN_POTOS);
+        addingPhoto(reservPhotosList.sort(() => 0.5 - Math.random()));
         break; //Вывод n кол во фотографий с фильтром "Случайные"
 
       case 'filter-discussed':
-        addingPhoto(photographies.slice().sort(compareLikes).slice());
+        addingPhoto(reservPhotosList.sort(compareLikes));
         break; //Вывод фотографий с фильтром "Обсуждаемые", отсортированные по кол-ву лайков
     }
+    openBigPicture(reservPhotosList);
   });
 };
 

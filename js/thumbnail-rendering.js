@@ -10,7 +10,6 @@ const addingPhoto = (photographies) => {
     photographiesElement.querySelector('.picture__comments').textContent = comments.length;
     similarListFragment.append(photographiesElement);
   });
-  //debugger
   pictures.querySelectorAll('.picture').forEach((elem) => elem.remove());
   pictures.append(similarListFragment);
 }; //Добавление фотографий на главную станицу сайта

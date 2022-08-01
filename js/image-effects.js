@@ -29,7 +29,7 @@ const defaultFilter = () => {
   removeAttribute(imgUploadPreviewElement, 'style');  //Удаление стиля фильтра у картинки
   sliderElement.classList.add('hidden');  //деактивация слайдера
   imgUploadPreviewElement.classList.add('effects__preview--none'); //Класс без фильтров
-}; //
+};
 
 effectList.addEventListener ('change', (evt) => {
   evt.preventDefault();

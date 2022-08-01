@@ -3,7 +3,7 @@ import './image-effects.js';
 
 import {openModal} from './utility.js';
 import {scalingImage} from './image-scale.js';
-import {showAlertSendingData} from './utility.js';
+import {showAlertSendingData} from './alert-forms.js';
 import {defaultFilter} from './image-effects.js';
 import {sendData} from './api.js';
 
@@ -23,6 +23,7 @@ const imgUploadWindow = form.querySelector ('.img-upload__overlay');
 const buttonCloseUploadOverley = form.querySelector('.img-upload__cancel');
 const fieldsetUploadText = form.querySelector('.img-upload__text');
 const inputTextHashtag = form.querySelector('.text__hashtags');
+const submitButton = form.querySelector('.img-upload__submit');
 
 const splitTextHashtag = () => inputTextHashtag.value.toLowerCase().split(' '); //Чтение хештегов в массив, преобразование в нижний регистр, отделение от друг друга пробелом
 
@@ -65,6 +66,14 @@ buttonCloseUploadOverley.addEventListener('click', () => {
   closeUploadOverlay ();
 });
 
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+}; //Блокировать кнопку отправить
+
+const unblockSubmitButton =() => {
+  submitButton.disabled = false;
+}; //Разблокировать кнопку отправить
+
 pristine.addValidator(inputTextHashtag, () => splitTextHashtag().length <= MAXIMUM_HASHTAGS, 'Не больше 5 хештегов');
 pristine.addValidator(inputTextHashtag, () => {
   const uniqueTextHashtagSplit = new Set(splitTextHashtag());
@@ -80,11 +89,16 @@ const setUserFormSubmit = (onSucces) => {
 
     const isValid = pristine.validate();
     if (isValid) {
+      blockSubmitButton();
       sendData(() => {
         onSucces();
+        unblockSubmitButton();
         showAlertSendingData('#success');
       },
-      () => showAlertSendingData('#error')
+      () => {
+        showAlertSendingData('#error');
+        unblockSubmitButton();
+      }
       , new FormData(evt.target)
       );
     }

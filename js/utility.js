@@ -18,34 +18,4 @@ const openModal = () => {
   }
 };//Добавляет или удаляет класс модалного окна на body
 
-const showAlert = (message) => {
-  const alertContainer = document.createElement('div');
-  alertContainer.style.zindex = '100';
-  alertContainer.style.position = 'absolute';
-  alertContainer.style.left = '0';
-  alertContainer.style.top = '0';
-  alertContainer.style.right = '0';
-  alertContainer.style.padding = '10px 3px';
-  alertContainer.style.fontSize = '30px';
-  alertContainer.style.textAlign = 'center';
-  alertContainer.style.background = 'red';
-
-  alertContainer.textContent = message;
-
-  document.body.append(alertContainer);
-
-  setTimeout(() => {
-    alertContainer.remove();
-  }, 5000);
-}; //Сообщение о неудачной получении данных
-
-const showAlertSendingData = (message) => {
-  const alertMessageFragment = document.createDocumentFragment();
-  const alertTemplate = document.querySelector (message).content;
-  const alertClone = alertTemplate.cloneNode(true);
-  alertMessageFragment.append(alertClone);
-  document.body.append(alertMessageFragment);
-
-}; //вывод сообщения о успешном или неудачной отправке фото
-
-export {getRandomPositiveInteger, getRandomArrayElement, checkCommentLenght,openModal, showAlert, showAlertSendingData};
+export {getRandomPositiveInteger, getRandomArrayElement, checkCommentLenght,openModal};

@@ -7,18 +7,19 @@ const buttonCommentsLoader = document.querySelector('.comments-loader');
 const socialComments = bigPictureElement.querySelector('.social__comments');
 const socialComment = bigPictureElement.querySelector('.social__comment');
 const maximumOutputComments = 5;
+let countComment = 0; //счетчик показанных комментариев
 
-const calculatesDisplayedComments = (listPhoto, index, commentCount, listFragment) => {
+const calculatesDisplayedComments = (listPhoto, index, listFragment) => {
   let countSlice = 0;
-  if (listPhoto[index].comments.length <= maximumOutputComments || listPhoto[index].comments.length < commentCount + maximumOutputComments) {
+  if (listPhoto[index].comments.length <= maximumOutputComments || listPhoto[index].comments.length < countComment + maximumOutputComments) {
     socialCommentCount.textContent = `${listPhoto[index].comments.length}`;
     buttonCommentsLoader.classList.add('hidden');
-    countSlice = commentCount + maximumOutputComments;
-    commentCount = 0;
+    countSlice = countComment + maximumOutputComments;
+    countComment = 0;
   } else {
-    commentCount += maximumOutputComments;
-    countSlice = commentCount;
-    socialCommentCount.textContent = `${commentCount}`;
+    countComment += maximumOutputComments;
+    countSlice = countComment;
+    socialCommentCount.textContent = `${countComment}`;
   }
   listPhoto[index].comments.slice(countSlice - maximumOutputComments, countSlice).forEach(({avatar, name, message}) => {
     const photosCommentsClone = socialComment.cloneNode(true);
@@ -32,13 +33,12 @@ const calculatesDisplayedComments = (listPhoto, index, commentCount, listFragmen
 }; //вычесляет колличество показанных комментариев
 
 const addingPhotoComments = (photos, index) => {
-  const countComment = 0;
   socialComments.innerHTML = '';
   const similarListFragment = document.createDocumentFragment();
-  calculatesDisplayedComments(photos, index, countComment, similarListFragment);
+  calculatesDisplayedComments(photos, index, similarListFragment);
   buttonCommentsLoader.addEventListener('click', (evt) => {
     evt.preventDefault();
-    calculatesDisplayedComments(photos, index, countComment, similarListFragment);
+    calculatesDisplayedComments(photos, index, similarListFragment);
   });
 }; //Добавление комментариев к фотографии
 
