@@ -2,7 +2,7 @@ import './image-scale.js';
 import './image-effects.js';
 
 import {openModal} from './utility.js';
-import {scalingImage} from './image-scale.js';
+import {representationInitialScale, scalingImage} from './image-scale.js';
 import {showAlertSendingData} from './alert-forms.js';
 import {defaultFilter} from './image-effects.js';
 import {sendData} from './api.js';
@@ -54,6 +54,7 @@ function closeUploadOverlay () {
   imgUploadWindow.classList.add('hidden');
   openModal();
   form.reset();
+  representationInitialScale();
 
   document.removeEventListener('keydown', onUploadOverlayKeyKeydown);
 }
