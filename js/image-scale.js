@@ -11,7 +11,8 @@ let percent = 100; //Масштаб добавляемой картинки в �
 
 const representationInitialScale = () => {
   scaleControlValue.value = `${DEFAULT_SCALE}%`;
-  imgUploadPreview.style.transform = `scale(${DEFAULT_SCALE} / NUMBER_CONVERT_PERCENTAGE})`;
+  imgUploadPreview.style.transform = `scale(${DEFAULT_SCALE / NUMBER_CONVERT_PERCENTAGE})`;
+  percent = 100;
 }; //Установка начального масштаба
 
 const scalingImage = () => {
@@ -35,4 +36,4 @@ scaleElement.addEventListener('click', (evt) => {
   scalingImage();
 }); //Определение % процента масштабирования картинки
 
-export {scalingImage, representationInitialScale};
+export {scalingImage, representationInitialScale, percent};

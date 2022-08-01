@@ -1,3 +1,5 @@
+import {scalingImage} from './image-scale.js';
+
 const effectList = document.querySelector('.effects__list');
 const imgUploadPreviewElement = document.querySelector('.img-upload__preview img');
 const sliderElement = document.querySelector('.effect-level__slider');
@@ -68,6 +70,7 @@ effectList.addEventListener ('change', (evt) => {
   switch (evt.target.id) {
     case 'effect-none':
       defaultFilter();
+      scalingImage();
 
       break;
     case 'effect-chrome':
@@ -83,6 +86,7 @@ effectList.addEventListener ('change', (evt) => {
         start: 1,
         step: 0.1
       });
+      scalingImage();
 
       break;
     case 'effect-sepia':
@@ -98,6 +102,7 @@ effectList.addEventListener ('change', (evt) => {
         start: 1,
         step: 0.1
       });
+      scalingImage();
 
       break;
     case 'effect-marvin':
@@ -113,6 +118,7 @@ effectList.addEventListener ('change', (evt) => {
         start: 100,
         step: 1
       });
+      scalingImage();
 
       break;
     case 'effect-phobos':
@@ -128,6 +134,7 @@ effectList.addEventListener ('change', (evt) => {
         start: 3,
         step: 0.1
       });
+      scalingImage();
 
       break;
     case 'effect-heat':
@@ -143,6 +150,7 @@ effectList.addEventListener ('change', (evt) => {
         start: 3,
         step: 0.1
       });
+      scalingImage();
 
       break;
   } //Выбор фильтра
