@@ -2,7 +2,7 @@ import './image-scale.js';
 import './image-effects.js';
 
 import {openModal} from './utility.js';
-import {scalingImage} from './image-scale.js';
+import {representationInitialScale} from './image-scale.js';
 import {showAlertSendingData} from './alert-forms.js';
 import {defaultFilter} from './image-effects.js';
 import {sendData} from './api.js';
@@ -44,7 +44,7 @@ const onUploadOverlayKeyKeydown = (evt) => {
 const openUploadOverlay = () => {
   imgUploadWindow.classList.remove('hidden');
   openModal();
-  scalingImage();
+  representationInitialScale();
   defaultFilter();
 
   document.addEventListener ('keydown', onUploadOverlayKeyKeydown);
@@ -54,6 +54,7 @@ function closeUploadOverlay () {
   imgUploadWindow.classList.add('hidden');
   openModal();
   form.reset();
+  representationInitialScale();
 
   document.removeEventListener('keydown', onUploadOverlayKeyKeydown);
 }
@@ -81,7 +82,6 @@ pristine.addValidator(inputTextHashtag, () => {
 }, 'Не может быть одинаковых тегов');
 pristine.addValidator(inputTextHashtag, () => inputTextHashtag.value === '' || splitTextHashtag().every((value) => value.length >= 2 && value.length <= 20), 'Хештег содержит не более 20 знаков включительно');
 pristine.addValidator(inputTextHashtag, () => inputTextHashtag.value === '' || splitTextHashtag().every((value) => /^#[A-Za-zА-Яа-яЁё0-9]{0,}$/.test(value)), 'Хештег начинается с # состоит из букв и чисел и сод');
-
 
 const setUserFormSubmit = (onSucces) => {
   form.addEventListener ('submit', (evt) => {
